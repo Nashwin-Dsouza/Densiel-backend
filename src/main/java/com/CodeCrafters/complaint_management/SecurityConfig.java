@@ -11,7 +11,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-// *** THIS IMPORT IS VERY IMPORTANT AND EASY TO MISS ***
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -26,16 +25,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // 1. Apply CORS configuration using the bean below
+            // Apply CORS configuration
             .cors(withDefaults())
-            // 2. Disable CSRF protection (This is the fix for the 403 error)
+            // Disable CSRF protection
             .csrf(csrf -> csrf.disable())
-            // 3. Define authorization rules
+            // *** TEMPORARY DEBUGGING CHANGE ***
+            // Allow ALL requests to ALL endpoints. This is not secure for production.
             .authorizeHttpRequests(auth -> auth
-                // Allow anyone to access the /api/auth/** endpoints
-                .requestMatchers("/api/auth/**").permitAll()
-                // Require authentication for any other request
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             );
 
         return http.build();
@@ -54,7 +51,7 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true);
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // Apply this configuration to all endpoints in the application
+        // Apply this configuration to all endpoints
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
