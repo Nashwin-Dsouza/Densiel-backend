@@ -9,6 +9,10 @@ COPY .mvn/ .mvn
 COPY mvnw .
 COPY pom.xml .
 
+# *** THIS IS THE NEW LINE THAT FIXES THE ERROR ***
+# Make the Maven wrapper executable
+RUN chmod +x ./mvnw
+
 # Build the application
 RUN ./mvnw dependency:go-offline
 COPY src ./src
