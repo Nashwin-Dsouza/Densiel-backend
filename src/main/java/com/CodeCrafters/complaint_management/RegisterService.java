@@ -27,5 +27,17 @@ public class RegisterService {
 		user.setPhoneNumber(registerRequest.phoneNumber());
 		user.setAddress(registerRequest.address());
 		user.setPassword(passwordEncoder.encode(registerRequest.password()));
+		
+		try {
+            System.out.println("Attempting to save user: " + user.getEmail());
+            userRepository.save(user);
+            System.out.println("Successfully called save for user: " + user.getEmail());
+        } catch (Exception e) {
+            // This will print the full error to the Render logs
+            System.err.println("DATABASE SAVE FAILED for user: " + user.getEmail());
+            e.printStackTrace();
+            // Re-throw the exception so the controller knows something went wrong
+            throw new RuntimeException("Could not save user to the database.", e);
+        }
 	}
 }
