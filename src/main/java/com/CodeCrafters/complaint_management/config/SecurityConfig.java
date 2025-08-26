@@ -41,16 +41,19 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
+        // Use origin patterns to allow Vercel preview URLs
+        configuration.setAllowedOriginPatterns(Arrays.asList(
             "http://localhost:5173",
             "http://localhost:3000",
             "capacitor://localhost",
             "http://10.0.2.2",
             "http://192.168.1.50",
-            "https://densiel-frontend.vercel.app"
+            "https://densiel-frontend.vercel.app",
+            "https://*.vercel.app"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
