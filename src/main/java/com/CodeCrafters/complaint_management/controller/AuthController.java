@@ -1,12 +1,16 @@
-package com.CodeCrafters.complaint_management;
+package com.CodeCrafters.complaint_management.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-
-record RegisterRequest(String fullName, String email, String phoneNumber, String address, String password ) {}
-record LoginRequest(String email,String password) {}
+import com.CodeCrafters.complaint_management.dto.LoginRequest;
+import com.CodeCrafters.complaint_management.dto.RegisterRequest;
+import com.CodeCrafters.complaint_management.service.LoginService;
+import com.CodeCrafters.complaint_management.service.RegisterService;
 
 @RestController
 @RequestMapping("/api/auth")

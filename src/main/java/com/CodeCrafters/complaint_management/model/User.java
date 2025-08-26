@@ -1,4 +1,4 @@
-package com.CodeCrafters.complaint_management;
+package com.CodeCrafters.complaint_management.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

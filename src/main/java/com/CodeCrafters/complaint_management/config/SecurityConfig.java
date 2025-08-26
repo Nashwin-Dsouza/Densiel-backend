@@ -1,4 +1,4 @@
-package com.CodeCrafters.complaint_management;
+package com.CodeCrafters.complaint_management.config;
 
 import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
@@ -41,17 +41,19 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Set the allowed origins
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:5173", "http://localhost", "capacitor://localhost","https://densiel-frontend.vercel.app" ));
-        // Set the allowed HTTP methods
+        configuration.setAllowedOrigins(Arrays.asList(
+            "http://localhost:5173",
+            "http://localhost:3000",
+            "capacitor://localhost",
+            "http://10.0.2.2",
+            "http://192.168.1.50",
+            "https://densiel-frontend.vercel.app"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        // Set the allowed headers
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        // Allow credentials
         configuration.setAllowCredentials(true);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // Apply this configuration to all endpoints
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
